@@ -8,9 +8,9 @@ O sistema permite registrar e monitorar entradas e saídas financeiras, categori
 ## Arquitetura e modelagem 
 O projeto aplica conceitos fundamentais da orientação a objetos, garantindo encapsulamento, reutilização de código e separação de responsabilidades:
 
-*   **Encapsulamento e Validação:** A classe `Carteira` é a classe central. Ela utiliza atributos privados e métodos manipuladores para validar operações, impedir saldos negativos e barrar despesas que ultrapassam o limite da sua `Categoria`.
-*   **Herança Múltipla e Generalização:** As movimentações (`Receita` e `Despesa`) herdam os atributos básicos da classe abstrata `Transacao` e as ferramentas de cálculo fornecidas pela classe `CalculadoraMixin`.
-*   **Associação e Composição:** A `Carteira` possui uma relação de composição com `MetaFinanceira` (as metas nascem e morrem com a carteira) e uma relação de agregação com as transações cadastradas. 
+*   **Encapsulamento e validação:** A classe `Carteira` é a classe central. Ela utiliza atributos privados e métodos manipuladores para validar operações, impedir saldos negativos e barrar despesas que ultrapassam o limite da sua `Categoria`.
+*   **Herança múltipla e generalização:** As movimentações (`Receita` e `Despesa`) herdam os atributos básicos da classe abstrata `Transacao` e as ferramentas de cálculo fornecidas pela classe `CalculadoraMixin`.
+*   **Associação e composição:** A `Carteira` possui uma relação de composição com `MetaFinanceira` (as metas nascem e morrem com a carteira) e uma relação de agregação com as transações cadastradas. 
 
 ## Estrutura do projeto
 O código está organizado modularmente, separando o script de interface no terminal do pacote contendo as regras da lógica do projeto:
