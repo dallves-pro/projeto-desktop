@@ -1,17 +1,12 @@
 class CalculadoraMixin:
     @classmethod
     def calcular_transacoes(cls, transacoes: list) -> float:
-        saldo_liquido = 0.0
-        for t in transacoes:
-            if type(t).__name__ == "Receita":
-                saldo_liquido += t.valor
-            elif type(t).__name__ == "Despesa":
-                saldo_liquido -= t.valor
-        return saldo_liquido
+        # Cada transação informa o próprio efeito no saldo (polimorfismo)
+        return sum((t.efeito_no_saldo() for t in transacoes), 0.0)
 
     @classmethod
     def calcular_progresso(cls, saldo_atual: float, objetivo: float) -> float:
         if objetivo <= 0:
             return 0.0
-        return (saldo_atual/objetivo) * 100
+        return (saldo_atual / objetivo) * 100
         
