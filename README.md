@@ -8,14 +8,17 @@ O sistema permite registrar e monitorar entradas e saídas financeiras, categori
 ## Arquitetura e modelagem 
 O projeto aplica conceitos fundamentais da orientação a objetos, garantindo encapsulamento, reutilização de código e separação de responsabilidades:
 
-*   **Encapsulamento e validação:** A classe `Carteira` é a classe central. Ela utiliza atributos privados e métodos manipuladores para validar operações, impedir saldos negativos e barrar despesas que ultrapassam o limite da sua `Categoria`.
+*   **Encapsulamento e validação:** A classe `Carteira` é a classe central. Ela utiliza atributos privados e métodos manipuladores para validar operações, impedir saldos negativos e barrar despesas que façam o total gasto na sua `Categoria` ultrapassar o limite de orçamento.
 *   **Herança múltipla e generalização:** As movimentações (`Receita` e `Despesa`) herdam os atributos básicos da classe abstrata `Transacao` e as ferramentas de cálculo fornecidas pela classe `CalculadoraMixin`.
 *   **Associação e composição:** A `Carteira` possui uma relação de composição com `MetaFinanceira` (as metas nascem e morrem com a carteira) e uma relação de agregação com as transações cadastradas. 
+*   **Metas financeiras:** O progresso de cada `MetaFinanceira` é calculado sobre o valor economizado: o saldo inicial da meta somado ao efeito líquido (receitas menos despesas) de todas as transações da carteira. Por isso, o progresso sobe com receitas e cai com despesas.
 
 ## Estrutura do projeto
 O código está organizado modularmente, separando o script de interface no terminal do pacote contendo as regras da lógica do projeto:
 
 ```text
+docs/
+└── diagrama_uml.md              # Diagramas de classes e de sequência (UML)
 projeto_financas/
 ├── financas_pkg/                # Pacote com a lógica orientada a objetos
 │   ├── __init__.py
@@ -26,5 +29,23 @@ projeto_financas/
 │   ├── despesa.py               # Especialização associada a 'Categoria'
 │   ├── meta_financeira.py       # Gestão de objetivos e progresso
 │   ├── carteira.py              # Classe central (CRUD e validações)
-│   └── gerador_relatorio.py     # Consolidação de dados 
+│   └── gerador_relatorio.py     # Consolidação de dados
+├── exemplo_completo.py          # Execução não interativa que testa todas as funcionalidades
 └── test_financas.py             # Script principal de execução (Menu interativo)
+```
+
+## Diagrama UML
+A modelagem completa (diagrama de classes e diagrama de sequência) está em [`docs/diagrama_uml.md`](docs/diagrama_uml.md). O arquivo usa "Mermaid" e é renderizado automaticamente pelo GitHub.
+
+## Como executar
+Requer Python 3 e nenhuma dependência externa.
+
+```bash
+cd projeto_financas
+
+# Menu interativo
+python test_financas.py
+
+# Exemplo que executa e verifica todas as funcionalidades
+python exemplo_completo.py
+```
