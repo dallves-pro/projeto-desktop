@@ -6,6 +6,8 @@ from .categoria import Categoria
 
 
 class Despesa(Transacao, CalculadoraMixin):
+    TIPO_REGISTRO = "Despesa"
+
     def __init__(self, valor: float, descricao: str, data: str, categoria: Categoria):
         super().__init__(valor, descricao, data)
         self.__categoria = categoria
@@ -15,7 +17,7 @@ class Despesa(Transacao, CalculadoraMixin):
         return self.__categoria
 
     def tipo(self) -> str:
-        return "Despesa"
+        return self.TIPO_REGISTRO
 
     def efeito_no_saldo(self) -> float:
         return -self.valor
@@ -33,4 +35,34 @@ class Despesa(Transacao, CalculadoraMixin):
         if saldo_atual < self.valor:
             return "Saldo insuficiente."
         return None
+
+    def validar_remocao(self, saldo_atual: float, transacoes: list) -> Optional[str]:
+        # Remover uma despesa só libera saldo e limite da categoria: sempre é permitido
+        return None
+
+    def categoria_vinculada(self) -> Optional[Categoria]:
+        return self.__categoria
+
+    def campos_especificos_editaveis(self) -> dict:
+        return {"categoria_id": "Categoria"}
+
+    def to_registro(self) -> dict:
+        return {
+            "tipo": self.TIPO_REGISTRO,
+            "valor": self.valor,
+            "descricao": self.descricao,
+            "data": self.data,
+            "fonte": None,
+            "categoria_id": self.__categoria.id,
+        }
+
+    @classmethod
+    def pertence_ao_registro(cls, registro: dict) -> bool:
+        return registro["tipo"] == cls.TIPO_REGISTRO
+
+    @classmethod
+    def de_registro(cls, registro: dict, categorias_por_id: dict) -> "Despesa":
+        # Usa o MESMO objeto Categoria carregado pela carteira (a comparação em gasto_em usa 'is')
+        categoria = categorias_por_id[registro["categoria_id"]]
+        return cls(registro["valor"], registro["descricao"], registro["data"], categoria)
     
