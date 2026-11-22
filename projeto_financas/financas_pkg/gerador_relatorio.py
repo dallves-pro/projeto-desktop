@@ -5,9 +5,17 @@ class GeradorRelatorio:
     def gerar_dados(self, carteira: Carteira) -> str:
         relatorio = "\n=== RELATORIO FINANCEIRO (VISUALIZACAO) ===\n"
         relatorio += f"Saldo Consolidado: R$ {carteira.saldo:.2f}\n\n"
-        relatorio += "Movimentacoes Cadastradas:\n"
+        
+        relatorio += "Categorias de Despesa:\n"
+        for c in carteira.categorias:
+            gasto = carteira.total_gasto_na_categoria(c)
+            relatorio += (f"  {c.nome}: gasto R$ {gasto:.2f} de R$ {c.limite_orcamento:.2f} "
+                          f"| restante: R$ {c.limite_orcamento - gasto:.2f}\n")
+
+        relatorio += "\nMovimentacoes Cadastradas:\n"
         for t in carteira.transacoes:
-            relatorio += f"  [{t.tipo()}] {t.descricao} | Valor: R$ {t.valor:.2f} | Data: {t.data}\n"
+            relatorio += (f"  #{t.id} [{t.tipo()}] {t.descricao} | Valor: R$ {t.valor:.2f} "
+                          f"| Data: {t.data}\n")           
 
         relatorio += "\nMetas Financeiras Acompanhadas:\n"
         for i, m in enumerate(carteira.metas, 1):
