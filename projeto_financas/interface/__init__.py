@@ -1,0 +1,1 @@
+"""Interface gráfica (Tkinter) do 'Gerenciador de Finanças Pessoais'."""

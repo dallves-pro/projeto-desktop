@@ -43,6 +43,17 @@ class Despesa(Transacao, CalculadoraMixin):
     def categoria_vinculada(self) -> Optional[Categoria]:
         return self.__categoria
 
+    def chave_estilo(self) -> str:
+        return "despesa"
+
+    def entrada_no_saldo(self) -> float:
+        # Despesa nunca é entrada de dinheiro
+        return 0.0
+
+    def saida_do_saldo(self) -> float:
+        # Despesa é toda saída de dinheiro
+        return self.valor
+
     def campos_especificos_editaveis(self) -> dict:
         return {"categoria_id": "Categoria"}
 

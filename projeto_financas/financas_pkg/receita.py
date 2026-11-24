@@ -37,6 +37,17 @@ class Receita(Transacao, CalculadoraMixin):
         # Receitas não pertencem a nenhuma categoria de despesa
         return None
 
+    def chave_estilo(self) -> str:
+        return "receita"
+
+    def entrada_no_saldo(self) -> float:
+        # Receita é toda entrada de dinheiro
+        return self.valor
+
+    def saida_do_saldo(self) -> float:
+        # Receita nunca é saída de dinheiro
+        return 0.0
+
     def campos_especificos_editaveis(self) -> dict:
         return {"fonte": "Fonte pagadora"}
 
