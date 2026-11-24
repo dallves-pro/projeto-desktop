@@ -60,6 +60,18 @@ class Transacao(ABC):
         """Categoria de despesa à qual a movimentacao pertence (None para receitas)"""
 
     @abstractmethod
+    def chave_estilo(self) -> str:
+        """Nome do estilo visual usado pela interface gráfica ('receita' ou 'despesa')"""
+
+    @abstractmethod
+    def entrada_no_saldo(self) -> float:
+        """Valor que a movimentacao soma como entrada de dinheiro (0 para despesas)"""
+
+    @abstractmethod
+    def saida_do_saldo(self) -> float:
+        """Valor que a movimentacao representa como saída de dinheiro (0 para receitas)"""
+
+    @abstractmethod
     def campos_especificos_editaveis(self) -> dict:
         """Campos que só este tipo de movimentacao tem: nome do campo -> rótulo do menu"""
 

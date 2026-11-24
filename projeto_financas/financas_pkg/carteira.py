@@ -47,6 +47,16 @@ class Carteira:
     def saldo_inicial(self) -> float:
         return self.__saldo
 
+    @property
+    def total_receitas(self) -> float:
+        # Cada movimentação informa quanto entra (receita devolve o valor, despesa devolve 0)
+        return sum((t.entrada_no_saldo() for t in self.__transacoes), 0.0)
+
+    @property
+    def total_despesas(self) -> float:
+        # Cada movimentação informa quanto sai (despesa devolve o valor, receita devolve 0)
+        return sum((t.saida_do_saldo() for t in self.__transacoes), 0.0)
+
     def alterar_saldo_inicial(self, novo_saldo: float) -> bool:
         # O saldo final (novo saldo inicial + movimentações) não pode ficar negativo
         saldo_final = novo_saldo + CalculadoraMixin.calcular_transacoes(self.__transacoes)

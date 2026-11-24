@@ -42,7 +42,7 @@ projeto_financas/
 A modelagem completa (diagrama de classes e diagrama de sequência) está em [`docs/diagrama_uml.md`](docs/diagrama_uml.md). O arquivo usa "Mermaid" e é renderizado automaticamente pelo GitHub.
 
 ## Como executar
-Requer Python 3 e nenhuma dependência externa.
+Requer Python 3 (com o módulo `tkinter` para a interface gráfica) e nenhuma outra dependência externa.
 
 AVISO: Na primeira execução do menu, o arquivo financas.db é criado automaticamente na pasta 'projeto_financas'. Para apagar todos os dados, basta excluir esse arquivo.
 
@@ -52,6 +52,24 @@ cd projeto_financas
 # Menu interativo
 python test_financas.py
 
+# Interface gráfica (janelas e botões)
+python interface_grafica.py
+
 # Exemplo que executa e verifica todas as funcionalidades
 python exemplo_completo.py
+```
+
+## Interface gráfica
+A interface usa **Tkinter**, que já vem com o Python. No Linux, pode ser preciso instalar o pacote `python3-tk`. As cores e a tipografia ficam centralizadas em `interface/tema.py`.
+
+```text
+projeto_financas/
+├── interface_grafica.py         # Ponto de entrada da interface gráfica
+└── interface/
+    ├── __init__.py
+    ├── tema.py                  # Paleta de cores, formatação de moeda e percentual
+    ├── estilos.py               # Estilos ttk: abas, tabelas, botões, barras e campos
+    ├── componentes.py           # Cabeçalho com gradiente, cartões e terminal de registro
+    ├── formularios.py           # Janelas de cadastro e edição (Toplevel)
+    └── janela_principal.py      # Janela principal com as abas
 ```
